@@ -29,8 +29,9 @@ UFO.forEach((sighting) => {
 function runEnter() {
 
   // Prevent the page from refreshing
-   d3.event.preventDefault();
-
+  d3.event.preventDefault();
+    //remove any existing from the list
+    d3.select("tbody").html("");
   // Select the input element and get the raw HTML node
   var inputElement = d3.select("#datetime");
 
@@ -42,12 +43,13 @@ function runEnter() {
 //get the value of the input element from the table
   var filteredData = UFO.filter(record => record.datetime === inputValue);
   console.log(filteredData);
-  //select the table by name 
-  var list = d3.select("#ufo-table").text(inputValue);
-  //remove any children from the list
-  list.html("");
-  //append filtered data to the list
-  list.append("cell").text(filteredData);
-
-
-}
+//filter on the date time field and append table
+  filteredData.forEach((record)=>{
+      var tbody = d3.select("tbody");
+      var row = tbody.append("tr");
+      Object.entries(record).forEach(([key, value]) => {
+      var cell = row.append("td");
+      cell.text(value);
+        });
+    });
+};
