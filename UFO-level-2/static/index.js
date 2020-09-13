@@ -33,7 +33,7 @@ function runEnter() {
     //remove any existing from the list
     d3.select("tbody").html("");
   // Select the input element and get the raw HTML node
-  var inputElement = d3.select("#datetime");
+  var inputElement = d3.select("#filter-type");
 
   // Get the value property of the input element
   var inputValue = inputElement.property("value");
@@ -53,3 +53,31 @@ function runEnter() {
         });
     });
 };
+
+function runcity() {
+
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+      //remove any existing from the list
+      d3.select("tbody").html("");
+    // Select the input element and get the raw HTML node
+    var inputElement = d3.select("#filter-type");
+  
+    // Get the value property of the input element
+    var inputValue = inputElement.property("value");
+  
+      // Print the value to the console
+    console.log(inputValue);
+  //get the value of the input element from the table
+    var filteredcity = UFO.filter(cities => cities.city === inputValue);
+    console.log(filteredcity);
+  //filter on the date time field and append table
+    filteredcity.forEach((cities)=>{
+        var tbody = d3.select("tbody");
+        var row = tbody.append("tr");
+        Object.entries(cities).forEach(([key, value]) => {
+        var cell = row.append("td");
+        cell.text(value);
+          });
+      });
+  };
